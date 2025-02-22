@@ -9,4 +9,7 @@ class AppColors {
   static const Color secondryTextColor = Color(0xFF7C7D81);
   static const Color bordetTextInputColor = Color(0xFFEAEAEA);
   static const Color clickableTextColor = Color(0xFF1B5EC9);
+  static const Color secondryBorderColor = Color(0xFFF2F2F2);
+  static const Color priceTextColor = Color(0xFF1B5EC9);
+  static const Color labelContainerColor = Color(0xFFFF9C44);
 }
