@@ -3,13 +3,11 @@ import 'package:e_commerce_app/features/home/presentation/widgets/categories_pro
 import 'package:e_commerce_app/features/home/presentation/widgets/custom_top_row.dart';
 import 'package:e_commerce_app/features/home/presentation/widgets/list_view_products.dart';
 import 'package:e_commerce_app/features/home/presentation/widgets/offer_container.dart';
-import 'package:e_commerce_app/features/home/presentation/widgets/product_container_widget.dart';
-import 'package:e_commerce_app/features/home/presentation/widgets/time_container.dart';
 import 'package:e_commerce_app/features/home/presentation/widgets/time_count_left.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -71,11 +69,11 @@ class HomeScreen extends StatelessWidget {
                         height: 1.44.h,
                       ),
                     ),
-                    TimeLeftWidget()
+                    const TimeLeftWidget()
                   ],
                 ),
                 SizedBox(height: 12.h),
-                HoriztonalListOfProducts(),
+                const HoriztonalListOfProducts(),
                 SizedBox(
                   height: 15.h,
                 ),
@@ -88,11 +86,97 @@ class HomeScreen extends StatelessWidget {
                     height: 1.44.h,
                   ),
                 ),
-                CategoriesGridView()
+                const CategoriesGridView()
               ],
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: StylishBottomBar(
+        items: [
+          BottomBarItem(
+            icon: const Icon(
+              Icons.house_outlined,
+            ),
+            selectedIcon: const Icon(Icons.house_rounded),
+            selectedColor: AppColors.buttonColor,
+            unSelectedColor: AppColors.secondryBorderColor,
+            title: Text(
+              'Home',
+              style: GoogleFonts.plusJakartaSans(
+                color: AppColors.buttonColor,
+                fontSize: 11.sp,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          BottomBarItem(
+            icon: const Icon(
+              Icons.search_rounded,
+            ),
+            selectedIcon: const Icon(Icons.house_rounded),
+            selectedColor: AppColors.buttonColor,
+            unSelectedColor: AppColors.secondryTextColor,
+            title: Text(
+              'Browse',
+              style: GoogleFonts.plusJakartaSans(
+                color: AppColors.secondryTextColor,
+                fontSize: 11.sp,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          BottomBarItem(
+            icon: const Icon(
+              Icons.favorite_border_sharp,
+            ),
+            selectedIcon: const Icon(Icons.house_rounded),
+            selectedColor: AppColors.buttonColor,
+            unSelectedColor: AppColors.secondryTextColor,
+            title: Text(
+              'Wishlist',
+              style: GoogleFonts.plusJakartaSans(
+                color: AppColors.secondryTextColor,
+                fontSize: 11.sp,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          BottomBarItem(
+            icon: const Icon(
+              Icons.shopping_bag_outlined,
+            ),
+            selectedIcon: const Icon(Icons.house_rounded),
+            selectedColor: AppColors.buttonColor,
+            unSelectedColor: AppColors.secondryTextColor,
+            title: Text(
+              'Cart',
+              style: GoogleFonts.plusJakartaSans(
+                color: AppColors.secondryTextColor,
+                fontSize: 11.sp,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          BottomBarItem(
+            icon: const Icon(
+              Icons.person_2_outlined,
+            ),
+            selectedIcon: const Icon(Icons.house_rounded),
+            selectedColor: AppColors.buttonColor,
+            unSelectedColor: AppColors.secondryTextColor,
+            title: Text(
+              'Profile',
+              style: GoogleFonts.plusJakartaSans(
+                color: AppColors.secondryTextColor,
+                fontSize: 11.sp,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ],
+        option: AnimatedBarOptions(
+            iconSize: 24.sp),
       ),
     );
   }
