@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/core/constants/app_colors.dart';
+import 'package:e_commerce_app/features/notifications/presentation/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,8 +20,7 @@ class CustomTopBar extends StatelessWidget {
             width: 44.w,
             height: 44.h,
             decoration: ShapeDecoration(
-                shape: const CircleBorder(),
-                color: Colors.white.withAlpha(20)),
+                shape: const CircleBorder(), color: Colors.white.withAlpha(20)),
             child: const Icon(
               Icons.location_on_sharp,
               color: Colors.white,
@@ -37,8 +37,8 @@ class CustomTopBar extends StatelessWidget {
                 'Location',
                 style: GoogleFonts.plusJakartaSans(
                   fontSize: 12.sp,
-                  color: AppColors.backgroundColor
-                      .withOpacity(0.8999999761581421),
+                  color:
+                      AppColors.backgroundColor.withOpacity(0.8999999761581421),
                   fontWeight: FontWeight.w400,
                   height: 1.33.h,
                 ),
@@ -55,15 +55,23 @@ class CustomTopBar extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          Container(
-            width: 44.w,
-            height: 44.h,
-            decoration: ShapeDecoration(
-                shape: const CircleBorder(),
-                color: Colors.white.withAlpha(20)),
-            child: const Icon(
-              Icons.notifications_active_rounded,
-              color: Colors.white,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const NotificationScreen()));
+            },
+            child: Container(
+              width: 44.w,
+              height: 44.h,
+              decoration: ShapeDecoration(
+                  shape: const CircleBorder(),
+                  color: Colors.white.withAlpha(20)),
+              child: const Icon(
+                Icons.notifications_active_rounded,
+                color: Colors.white,
+              ),
             ),
           ),
           SizedBox(

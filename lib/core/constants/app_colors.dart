@@ -12,4 +12,5 @@ class AppColors {
   static const Color secondryBorderColor = Color(0xFFF2F2F2);
   static const Color priceTextColor = Color(0xFF1B5EC9);
   static const Color labelContainerColor = Color(0xFFFF9C44);
+  static const Color notficationIconContainerColor = Color(0xFFF3F6FB);
 }
