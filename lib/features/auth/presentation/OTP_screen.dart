@@ -47,7 +47,7 @@ class OTPScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(),
+              const Row(),
               Image.asset('assets/images/OTP.png'),
               SizedBox(
                 height: 24.h,

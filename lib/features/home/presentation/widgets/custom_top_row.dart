@@ -5,8 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomTopBar extends StatelessWidget {
+  final String streetName;
+  final String city;
   const CustomTopBar({
     super.key,
+    required this.city,
+    required this.streetName,
   });
 
   @override
@@ -44,7 +48,7 @@ class CustomTopBar extends StatelessWidget {
                 ),
               ),
               Text(
-                'Condong Catur',
+                '${streetName}, ${city}',
                 style: GoogleFonts.plusJakartaSans(
                   color: Colors.white,
                   fontSize: 14.sp,

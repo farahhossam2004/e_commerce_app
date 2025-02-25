@@ -5,6 +5,7 @@ import 'package:e_commerce_app/features/auth/logic/cubit/auth_cubit.dart';
 import 'package:e_commerce_app/features/auth/presentation/register.dart';
 import 'package:e_commerce_app/features/auth/presentation/widgets/forget_password_modal.dart';
 import 'package:e_commerce_app/features/auth/presentation/widgets/social_media_login_widget.dart';
+import 'package:e_commerce_app/features/home/presentation/root_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,8 +37,10 @@ class LoginPage extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text("Success Login"),
                 ));
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const Register()));
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const RootScreen()));
               }
 
               if (state is AuthLoginFailure) {
@@ -85,7 +88,9 @@ class LoginPage extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               showModalBottomSheet(
-                                  context: context, builder: (context) => const ForgetPasswordModalSheet());
+                                  context: context,
+                                  builder: (context) =>
+                                      const ForgetPasswordModalSheet());
                             },
                             child: Text(
                               'Forget password? ',
@@ -106,6 +111,10 @@ class LoginPage extends StatelessWidget {
                             context.read<AuthCubit>().login(
                                 userNameController.text,
                                 passwordController.text);
+                            Navigator.push(
+                                (context),
+                                MaterialPageRoute(
+                                    builder: (context) => const RootScreen()));
                           }),
                       SizedBox(
                         height: 24.h,
