@@ -11,22 +11,31 @@ class SearchCubit extends Cubit<SearchState> {
   List<ProductModel> searchedProducts = [];
   SearchCubit() : super(SearchInitial());
 
-  void searchProducts(String query) {
-    if (query.isEmpty) {
-      emit(SearchEmpty());
-      return;
-    }
 
+  void getProducts({String? searchQuery}) async {
     emit(SearchLoading());
-
-    DioHelper.getData(url: Endpoints.productsEndPoint).then((value) {
-      if (value.statusCode == 200 && value.data != null) {
-        products =
-            (value.data as List).map((e) => ProductModel.fromJson(e)).toList();
+    try {
+      final response = await DioHelper.getData(url: Endpoints.productsEndPoint);
+      if (response.statusCode == 200 && response.data != null) {
+        products = (response.data as List)
+            .map((e) => ProductModel.fromJson(e))
+            .toList();
+        if (searchQuery != null && searchQuery.isNotEmpty) {
+          searchProducts(searchQuery);
+        } else {
+          emit(SearchLoaded(searchedProducts: products));
+        }
+      } else {
+        emit(SearchError("Failed"));
       }
-    }).catchError((error) {
+    } catch (error) {
       print(error.toString());
-    });
+      emit(SearchError(error.toString()));
+    }
+  }
+
+  void searchProducts(String query) {
+    emit(SearchLoading());
 
     searchedProducts = products
         .where((product) =>
