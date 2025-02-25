@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/core/constants/app_colors.dart';
-import 'package:e_commerce_app/features/profile/data/models/settings_model.dart';
+import 'package:e_commerce_app/features/profile/presentation/widgets/acc_settings_list.dart';
 import 'package:e_commerce_app/features/profile/presentation/widgets/acc_settings_tile.dart';
+import 'package:e_commerce_app/features/profile/presentation/widgets/general_settings_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,13 +11,6 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<SettingsModel> acc_settings = [
-      SettingsModel(icon: Icons.location_on_outlined, title: 'Address'),
-      SettingsModel(icon: Icons.payment, title: 'Payment Method'),
-      SettingsModel(
-          icon: Icons.notifications_active_outlined, title: 'Notification'),
-      SettingsModel(icon: Icons.security, title: 'Account Security'),
-    ];
     return SafeArea(
       child: Column(children: [
         Padding(
@@ -26,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.arrow_back),
+                icon: const Icon(Icons.arrow_back),
               ),
               Text(
                 'Profile',
@@ -51,7 +45,7 @@ class ProfileScreen extends StatelessWidget {
         Container(
           height: 246.h,
           width: double.infinity,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
                 Color(0xFFE7F5F8),
@@ -59,10 +53,47 @@ class ProfileScreen extends StatelessWidget {
               ],
             ),
           ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 100.w,
+                height: 100.h,
+                decoration: const ShapeDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/Profile image.png'),
+                    fit: BoxFit.fill,
+                  ),
+                  shape: OvalBorder(),
+                ),
+              ),
+              SizedBox(
+                height: 16.h,
+              ),
+              Text(
+                'Bryan Adam',
+                style: GoogleFonts.plusJakartaSans(
+                  fontSize: 18.sp,
+                  color: AppColors.textColor,
+                  fontWeight: FontWeight.w600,
+                  height: 1.44.h,
+                ),
+              ),
+              Text(
+                'bryan.adam87@gmail.com',
+                style: GoogleFonts.plusJakartaSans(
+                  fontSize: 14.sp,
+                  color: AppColors.secondryTextColor,
+                  fontWeight: FontWeight.w400,
+                  height: 1.43.h,
+                ),
+              ),
+            ],
+          ),
         ),
         Expanded(
           child: Container(
-            color: Color(0xFFE7F5F8),
+            color: const Color(0xFFE7F5F8),
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
@@ -73,44 +104,70 @@ class ProfileScreen extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 24.h,
-                      ),
-                      Divider(
-                        thickness: 4.h,
-                        color: AppColors.secondryBorderColor,
-                      ),
-                      SizedBox(
-                        height: 24.h,
-                      ),
-                      Text(
-                        'Account Settings',
-                        style: GoogleFonts.plusJakartaSans(
-                          fontSize: 14.sp,
-                          color: AppColors.secondryTextColor,
-                          fontWeight: FontWeight.w600,
-                          height: 1.43.h,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 24.h,
                         ),
-                      ),
-                      SizedBox(
-                        height: 16.h,
-                      ),
-                      // ListView.separated(
-                      //     itemBuilder: (context, index) {
-                      //       return AccountSettingsTile(
-                      //           icon: acc_settings[index].icon,
-                      //           title: acc_settings[index].title);
-                      //     },
-                      //     separatorBuilder: (context, index) {
-                      //       return SizedBox(
-                      //         height: 16.h,
-                      //       );
-                      //     },
-                      //     itemCount: 4)
-                    ],
+                        Divider(
+                          thickness: 4.h,
+                          color: AppColors.secondryBorderColor,
+                        ),
+                        SizedBox(
+                          height: 24.h,
+                        ),
+                        Text(
+                          'Account Settings',
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 14.sp,
+                            color: AppColors.secondryTextColor,
+                            fontWeight: FontWeight.w600,
+                            height: 1.43.h,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 16.h,
+                        ),
+                        const AccountSettingsList(),
+                        Divider(
+                          thickness: 4.h,
+                          color: AppColors.secondryBorderColor,
+                        ),
+                        SizedBox(
+                          height: 24.h,
+                        ),
+                        Text(
+                          'General',
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 14.sp,
+                            color: AppColors.secondryTextColor,
+                            fontWeight: FontWeight.w600,
+                            height: 1.43.h,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 16.h,
+                        ),
+                        const GeneralSettingsList(),
+                        Divider(
+                          thickness: 4.h,
+                          color: AppColors.secondryBorderColor,
+                        ),
+                        SizedBox(
+                          height: 24.h,
+                        ),
+                        const AccountSettingsTile(
+                          icon: Icons.logout_outlined,
+                          title: 'Logout',
+                          isLogout: true,
+                        ),
+                        SizedBox(
+                          height: 24.h,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
