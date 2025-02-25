@@ -10,7 +10,7 @@ class CategoriesGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 600.h,
+      height: 640.h,
       child: GridView.builder(
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
@@ -21,7 +21,7 @@ class CategoriesGridView extends StatelessWidget {
               mainAxisSpacing: 20.h),
           itemCount: 10,
           itemBuilder: (BuildContext context, index) {
-            return ProductContainerWidget();
+            return const ProductContainerWidget();
           }),
     );
   }

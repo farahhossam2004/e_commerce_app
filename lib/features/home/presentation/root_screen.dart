@@ -1,6 +1,8 @@
 import 'package:e_commerce_app/core/constants/app_colors.dart';
+import 'package:e_commerce_app/features/browse/presentation/browse_screen.dart';
 import 'package:e_commerce_app/features/home/logic/cubit/bottom_navigator_bar_cubit.dart';
 import 'package:e_commerce_app/features/home/presentation/home_screen.dart';
+import 'package:e_commerce_app/features/profile/presentation/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -146,7 +148,7 @@ class RootScreen extends StatelessWidget {
                 return const HomeScreen();
 
               case 'Browse':
-                return const Center(child: Text('Browse'));
+                return const BrowseScreen();
 
               case 'Wishlist':
                 return const Center(child: Text('Wishlist'));
@@ -155,7 +157,7 @@ class RootScreen extends StatelessWidget {
                 return const Center(child: Text('Cart'));
 
               case 'Profile':
-                return const Center(child: Text('Profile'));
+                return const ProfileScreen();
             }
           }
           return Container();
