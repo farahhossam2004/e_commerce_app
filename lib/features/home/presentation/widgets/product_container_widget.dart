@@ -1,12 +1,12 @@
 import 'package:e_commerce_app/core/constants/app_colors.dart';
+import 'package:e_commerce_app/features/home/data/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProductContainerWidget extends StatelessWidget {
-  const ProductContainerWidget({
-    super.key,
-  });
+  final ProductModel product;
+  const ProductContainerWidget({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +15,23 @@ class ProductContainerWidget extends StatelessWidget {
       height: 225.h,
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.r)),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Image.asset('assets/images/product 1.png'),
+          SizedBox(
+              height: 110.h,
+              width: 220.w,
+              child: Image.network(
+                product.image!,
+                fit: BoxFit.fitHeight,
+              )),
+          SizedBox(
+            height: 10.h,
+          ),
           Text(
-            'Macbook Pro 15” \n2019 - Intel core i7',
+            product.title!,
             textAlign: TextAlign.center,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
             style: GoogleFonts.plusJakartaSans(
                 color: AppColors.textColor,
                 fontSize: 14.sp,
@@ -30,7 +42,7 @@ class ProductContainerWidget extends StatelessWidget {
             height: 4.h,
           ),
           Text(
-            '\$1240',
+            '\$ ${product.price!.toString()}',
             textAlign: TextAlign.center,
             style: GoogleFonts.plusJakartaSans(
               color: AppColors.priceTextColor,

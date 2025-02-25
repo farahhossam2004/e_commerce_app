@@ -14,3 +14,14 @@ final class HomeUserError extends HomeState {
 
   HomeUserError(this.message);
 }
+
+
+final class HomeProductsLoading extends HomeState {}
+
+final class HomeProductsLoaded extends HomeState {}
+
+final class HomeProductsError extends HomeState {
+  final String message;
+
+  HomeProductsError(this.message);
+}

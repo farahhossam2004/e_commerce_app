@@ -52,7 +52,7 @@ class BrowseScreen extends StatelessWidget {
             SizedBox(
               height: 8.h,
             ),
-            const CategoriesGridView()
+            // const CategoriesGridView()
           ],
         ),
       ),

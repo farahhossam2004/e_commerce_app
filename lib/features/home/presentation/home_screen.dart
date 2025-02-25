@@ -17,7 +17,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit()..getCurrentUserData(),
+      create: (context) => HomeCubit()
+        ..getCurrentUserData()
+        ..getProducts(),
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
           // TODO: implement listener
@@ -93,7 +95,16 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 12.h),
-                    const HoriztonalListOfProducts(),
+                    ConditionalBuilder(
+                      condition: context.watch<HomeCubit>().products.isNotEmpty,
+                      builder: (context) {
+                        return HoriztonalListOfProducts(
+                            products: context.watch<HomeCubit>().products);
+                      },
+                      fallback: (context) {
+                        return const Center(child: CircularProgressIndicator());
+                      },
+                    ),
                     SizedBox(
                       height: 15.h,
                     ),
@@ -106,7 +117,16 @@ class HomeScreen extends StatelessWidget {
                         height: 1.44.h,
                       ),
                     ),
-                    const CategoriesGridView()
+                    ConditionalBuilder(
+                      condition: context.watch<HomeCubit>().products.isNotEmpty,
+                      builder: (context) {
+                        return CategoriesGridView(
+                            products: context.watch<HomeCubit>().products);
+                      },
+                      fallback: (context) {
+                        return const Center(child: CircularProgressIndicator());
+                      },
+                    ),
                   ],
                 ),
               ),
