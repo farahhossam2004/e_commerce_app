@@ -14,11 +14,15 @@ class HoriztonalListOfProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 230.h,
-      child: ListView.builder(
-          itemCount: 3,
+      child: ListView.separated(
+          separatorBuilder: (context, index) {
+            return SizedBox(width: 16.w);
+          },
+          itemCount: products.length - 1,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             return ProductContainerWidget(
+              products: products,
               product: products[index],
             );
           }),

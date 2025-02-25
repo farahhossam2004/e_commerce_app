@@ -24,6 +24,7 @@ class CategoriesGridView extends StatelessWidget {
             itemCount: products.length,
             itemBuilder: (BuildContext context, index) {
               return ProductContainerWidget(
+                products: products,
                 product: products[index],
               );
             }),
