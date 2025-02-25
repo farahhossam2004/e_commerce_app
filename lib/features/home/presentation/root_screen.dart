@@ -148,7 +148,7 @@ class RootScreen extends StatelessWidget {
                 return const HomeScreen();
 
               case 'Browse':
-                return const BrowseScreen();
+                return  BrowseScreen();
 
               case 'Wishlist':
                 return const Center(child: Text('Wishlist'));

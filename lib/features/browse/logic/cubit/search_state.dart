@@ -7,15 +7,15 @@ final class SearchInitial extends SearchState {}
 
 final class SearchLoading extends SearchState {}
 
-final class SearchLoaded extends SearchState {
-  // list of the products model
-  // constructor 
-  // return the list of the products
-}
+final class SearchEmpty extends SearchState {}
 
+final class SearchLoaded extends SearchState {
+  final List<ProductModel> searchedProducts;
+
+  SearchLoaded({required this.searchedProducts});
+}
 
 final class SearchError extends SearchState {
   final String message;
   SearchError(this.message);
 }
-
