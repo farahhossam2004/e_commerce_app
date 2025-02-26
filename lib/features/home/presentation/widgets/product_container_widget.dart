@@ -27,11 +27,16 @@ class ProductContainerWidget extends StatelessWidget {
                     products: products, product: product)));
       },
       child: Container(
-        width: 159,
+        width: 140,
         height: 225.h,
-        decoration: BoxDecoration(
-        
-           borderRadius: BorderRadius.circular(16.r)),
+        decoration: BoxDecoration(boxShadow: const [
+          BoxShadow(
+            color: AppColors.productBoxShadowColor,
+            blurRadius: 32,
+            offset: Offset(0, 20),
+            spreadRadius: -8,
+          )
+        ], color: Colors.white, borderRadius: BorderRadius.circular(16.r)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -40,7 +45,7 @@ class ProductContainerWidget extends StatelessWidget {
                 width: 220.w,
                 child: Image.network(
                   product.image!,
-                  fit: BoxFit.fitHeight,
+                  fit: BoxFit.contain,
                 )),
             SizedBox(
               height: 10.h,

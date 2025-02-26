@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/core/constants/app_colors.dart';
+import 'package:e_commerce_app/core/database/local_database/local_db_helper.dart';
 import 'package:e_commerce_app/core/widgets/custom_button.dart';
 import 'package:e_commerce_app/features/home/data/models/product_model.dart';
 import 'package:e_commerce_app/features/home/presentation/widgets/list_view_products.dart';
@@ -10,6 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 class ProductDetailsScreen extends StatelessWidget {
   final ProductModel product;
   final List<ProductModel> products;
+
   const ProductDetailsScreen(
       {super.key, required this.product, required this.products});
   List<ProductModel> getRelatedProducts(
@@ -130,20 +132,20 @@ class ProductDetailsScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ProductColorsOption(
-                        color: Color(0xFFA6A5AA),
+                        color: const Color(0xFFA6A5AA),
                         isSelected: true,
                       ),
                       SizedBox(
                         width: 20.w,
                       ),
                       ProductColorsOption(
-                        color: Color(0xFFE8E8EA),
+                        color: const Color(0xFFE8E8EA),
                       ),
                       SizedBox(
                         width: 20.w,
                       ),
                       ProductColorsOption(
-                        color: Color(0xFFF2E0CC),
+                        color: const Color(0xFFF2E0CC),
                       ),
                     ],
                   ),
@@ -228,21 +230,37 @@ class ProductDetailsScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Container(
-                          width: 56.w,
-                          height: 56.h,
-                          // padding: const EdgeInsets.all(16),
-                          decoration: ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                  width: 1, color: Color(0xFFEAEAEA)),
-                              borderRadius: BorderRadius.circular(34.r),
+                        GestureDetector(
+                          onTap: () async {
+                            try {
+                              await SQLHelper.add(
+                                  product.id.toString(),
+                                  product.title!,
+                                  product.description!,
+                                  product.image!,
+                                  1,
+                                  product.price!.toDouble());
+                              print('product added to cart');
+                            } catch (error) {
+                              print(error);
+                            }
+                          },
+                          child: Container(
+                            width: 56.w,
+                            height: 56.h,
+                            // padding: const EdgeInsets.all(16),
+                            decoration: ShapeDecoration(
+                              shape: RoundedRectangleBorder(
+                                side: const BorderSide(
+                                    width: 1, color: Color(0xFFEAEAEA)),
+                                borderRadius: BorderRadius.circular(34.r),
+                              ),
                             ),
-                          ),
-                          child: Center(
-                            child: Icon(
-                              Icons.shopping_bag_outlined,
-                              color: AppColors.textColor,
+                            child: const Center(
+                              child: Icon(
+                                Icons.shopping_bag_outlined,
+                                color: AppColors.textColor,
+                              ),
                             ),
                           ),
                         ),
@@ -292,7 +310,7 @@ class ProductColorsOption extends StatelessWidget {
             height: 32.w,
             decoration: ShapeDecoration(
                 color: color,
-                shape: OvalBorder(
+                shape: const OvalBorder(
                   side: BorderSide(
                     width: 3,
                     strokeAlign: BorderSide.strokeAlignCenter,

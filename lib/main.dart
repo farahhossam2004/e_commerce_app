@@ -1,10 +1,13 @@
+import 'package:e_commerce_app/core/database/local_database/local_db_helper.dart';
 import 'package:e_commerce_app/core/network/dio_helper.dart';
 import 'package:e_commerce_app/features/intro/presentation/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
+  await SQLHelper.initDb();
   runApp(const MyApp());
 }
 

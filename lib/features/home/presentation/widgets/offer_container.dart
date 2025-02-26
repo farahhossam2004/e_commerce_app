@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,23 +10,21 @@ class OfferContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-      SizedBox(
+      Container(
         width: 335.w,
-        height: 210.h,
+        height: 236.h,
         // color: Colors.amber,
       ),
       Positioned(
         top: 20,
         child: Container(
-          padding:
-              EdgeInsets.only(left: 24.w, top: 26.h, bottom: 22.h),
+          padding: EdgeInsets.only(left: 24.w, top: 26.h, bottom: 22.h),
           width: 335.w,
           height: 178.h,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.r),
               image: const DecorationImage(
-                  image:
-                      AssetImage('assets/images/Background.png'))),
+                  image: AssetImage('assets/images/Background.png'))),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,9 +61,7 @@ class OfferContainer extends StatelessWidget {
         ),
       ),
       Positioned(
-          top: 0,
-          right: 8,
-          child: Image.asset('assets/images/headphones.png')),
+          top: 0, right: 8, child: Image.asset('assets/images/headphones.png')),
     ]);
   }
 }

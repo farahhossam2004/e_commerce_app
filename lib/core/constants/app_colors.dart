@@ -16,4 +16,5 @@ class AppColors {
   static const Color notficationIconContainerColor = Color(0xFFF3F6FB);
   static const Color productTextColor = Color(0xFF959699);
   static const Color productDividerColor = Color(0xFFF0F1F5);
+  static const Color productBoxShadowColor = Color(0x11566E84);
 }
