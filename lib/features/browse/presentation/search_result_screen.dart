@@ -1,7 +1,6 @@
 import 'package:e_commerce_app/core/constants/app_colors.dart';
-import 'package:e_commerce_app/core/widgets/custom_button.dart';
 import 'package:e_commerce_app/features/browse/logic/cubit/search_cubit.dart';
-import 'package:e_commerce_app/features/browse/presentation/widgets/price_range_slider.dart';
+import 'package:e_commerce_app/features/browse/presentation/widgets/apply_filter_widget.dart';
 import 'package:e_commerce_app/features/home/presentation/widgets/categories_products_gridview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -173,120 +172,47 @@ class SearchResultScreen extends StatelessWidget {
         floatingActionButton: Container(
           width: 119.w,
           height: 52.h,
-          child: FloatingActionButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40.r),
-            ),
-            backgroundColor: AppColors.buttonColor,
-            onPressed: () {
-              showModalBottomSheet(
-                  context: context,
-                  builder: (context) {
-                    return Container(
-                        width: 375.w,
-                        height: 308.h,
-                        decoration: ShapeDecoration(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(24.r),
-                              topRight: Radius.circular(24.r),
-                            ),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20.w, vertical: 10.h),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Center(
-                                child: Container(
-                                  width: 66.67,
-                                  height: 4,
-                                  decoration: ShapeDecoration(
-                                    color: Colors.black
-                                        .withOpacity(0.20000000298023224),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(11),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 12.h,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Filter',
-                                    style: GoogleFonts.plusJakartaSans(
-                                      color: AppColors.textColor,
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.w600,
-                                      height: 1.44.h,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Reset',
-                                    style: GoogleFonts.plusJakartaSans(
-                                      color: AppColors.priceTextColor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600,
-                                      height: 1.43.h,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 48.h,
-                              ),
-                              Text(
-                                'Price Range',
-                                style: GoogleFonts.plusJakartaSans(
-                                  color: AppColors.textColor,
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.w600,
-                                  height: 1.44.h,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 16.h,
-                              ),
-                              PriceRangeSlider(),
-                              SizedBox(
-                                height: 24.h,
-                              ),
-                              CustomButton(
-                                  label: 'Apply filter', onPressed: () {})
-                            ],
-                          ),
-                        ));
-                  });
+          child: BlocBuilder<SearchCubit, SearchState>(
+            builder: (context, state) {
+              return FloatingActionButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40.r),
+                ),
+                backgroundColor: AppColors.buttonColor,
+                onPressed: () {
+                  final searchCubit = context.read<SearchCubit>();
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return BlocProvider.value(
+                          value: searchCubit, // Pass the existing instance
+                          child: ApplyFilterWidget(),
+                        );
+                      });
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.filter_alt_rounded,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      width: 8.w,
+                    ),
+                    Text(
+                      'Filter',
+                      style: GoogleFonts.plusJakartaSans(
+                        color: Colors.white,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                        height: 1.50.h,
+                      ),
+                    )
+                  ],
+                ),
+              );
             },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(
-                  Icons.filter_alt_rounded,
-                  color: Colors.white,
-                ),
-                SizedBox(
-                  width: 8.w,
-                ),
-                Text(
-                  'Filter',
-                  style: GoogleFonts.plusJakartaSans(
-                    color: Colors.white,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                    height: 1.50.h,
-                  ),
-                )
-              ],
-            ),
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

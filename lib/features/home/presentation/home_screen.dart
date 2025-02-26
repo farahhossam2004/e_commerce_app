@@ -55,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                         var user = context.watch<HomeCubit>().userData;
                         return CustomTopBar(
                           streetName: user!.address!.street!,
-                          city: user!.address!.city!,
+                          city: user.address!.city!,
                         );
                       },
                       fallback: (BuildContext context) {

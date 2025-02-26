@@ -263,6 +263,7 @@ class ProductDetailsScreen extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class ProductColorsOption extends StatelessWidget {
   Color color;
   bool isSelected;

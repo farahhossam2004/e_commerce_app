@@ -9,8 +9,8 @@ part 'search_state.dart';
 class SearchCubit extends Cubit<SearchState> {
   List<ProductModel> products = [];
   List<ProductModel> searchedProducts = [];
+  List<ProductModel> filteredProducts = [];
   SearchCubit() : super(SearchInitial());
-
 
   void getProducts({String? searchQuery}) async {
     emit(SearchLoading());
@@ -42,5 +42,15 @@ class SearchCubit extends Cubit<SearchState> {
             product.title!.toLowerCase().contains(query.toLowerCase()))
         .toList();
     emit(SearchLoaded(searchedProducts: searchedProducts));
+  }
+
+  void filterProductsByPrice(double minPrice, double maxPrice) {
+    emit(SearchLoading());
+
+    filteredProducts = products.where((product) {
+      return product.price! >= minPrice && product.price! <= maxPrice;
+    }).toList();
+
+    emit(SearchLoaded(searchedProducts: filteredProducts));
   }
 }

@@ -3,6 +3,7 @@ import 'package:e_commerce_app/features/home/presentation/widgets/product_contai
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// ignore: must_be_immutable
 class HoriztonalListOfProducts extends StatelessWidget {
   List<ProductModel> products = [];
   HoriztonalListOfProducts({
