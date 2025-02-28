@@ -2,6 +2,7 @@ import 'package:e_commerce_app/core/constants/app_colors.dart';
 import 'package:e_commerce_app/core/widgets/custom_button.dart';
 import 'package:e_commerce_app/features/cart/data/models/product_cart_model.dart';
 import 'package:e_commerce_app/features/cart/logic/cubit/cart_cubit.dart';
+import 'package:e_commerce_app/features/cart/presentation/confirm_order_screen.dart';
 import 'package:e_commerce_app/features/cart/presentation/widgets/empty_cart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -273,7 +274,18 @@ class CartScreen extends StatelessWidget {
                               },
                               itemCount: products.length),
                         ),
-                        CustomButton(label: 'Checkout', onPressed: () {})
+                        CustomButton(
+                            label: 'Checkout',
+                            onPressed: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return ConfirmOrderScreen();
+                              })).then((value) {
+                                if (value == true) {
+                                  context.read<CartCubit>().getCartProducts();
+                                }
+                              });
+                            })
                       ],
                     ),
                   );

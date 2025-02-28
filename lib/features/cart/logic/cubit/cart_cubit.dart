@@ -7,6 +7,8 @@ part 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
   List<ProductCartModel> cartProducts = [];
+  double totalPrice = 0;
+  double totalPriceWithShipping = 0;
   CartCubit() : super(CartInitial());
 
   Future<void> getCartProducts() async {
@@ -16,7 +18,7 @@ class CartCubit extends Cubit<CartState> {
       await SQLHelper.get().then((value) {
         cartProducts =
             value.map((product) => ProductCartModel.fromJson(product)).toList();
-
+        calculateTotalPrice();
         emit(CartLoaded());
       });
     } catch (error) {
@@ -30,6 +32,7 @@ class CartCubit extends Cubit<CartState> {
     try {
       await SQLHelper.delete(id);
       cartProducts.removeAt(index);
+      calculateTotalPrice();
       emit(CartLoaded());
     } catch (error) {
       emit(CartError(error.toString()));
@@ -50,6 +53,7 @@ class CartCubit extends Cubit<CartState> {
         cartProducts[index].price!.toDouble(),
       );
       // print('Updated product');
+      calculateTotalPrice();
       emit(CartLoaded());
     } catch (error) {
       emit(CartError(error.toString()));
@@ -70,11 +74,19 @@ class CartCubit extends Cubit<CartState> {
           cartProducts[index].quantity!,
           cartProducts[index].price!.toDouble(),
         );
-
+        calculateTotalPrice();
         emit(CartLoaded());
       }
     } catch (error) {
       emit(CartError(error.toString()));
     }
+  }
+
+  void calculateTotalPrice() {
+    totalPrice = 0;
+    for (var product in cartProducts) {
+      totalPrice += product.price! * product.quantity!;
+    }
+    totalPriceWithShipping = totalPrice + 10.53;
   }
 }
