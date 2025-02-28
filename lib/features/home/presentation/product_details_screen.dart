@@ -3,6 +3,7 @@ import 'package:e_commerce_app/core/database/local_database/local_db_helper.dart
 import 'package:e_commerce_app/core/widgets/custom_button.dart';
 import 'package:e_commerce_app/features/home/data/models/product_model.dart';
 import 'package:e_commerce_app/features/home/presentation/widgets/checkout_button.dart';
+import 'package:e_commerce_app/features/home/presentation/widgets/fav_icon.dart';
 import 'package:e_commerce_app/features/home/presentation/widgets/list_view_products.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
@@ -29,15 +30,7 @@ class ProductDetailsScreen extends StatelessWidget {
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor,
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.favorite_border_outlined,
-              color: AppColors.textColor,
-            ),
-            onPressed: () {},
-          )
-        ],
+        actions: [FavIcon(product: product)],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -112,7 +105,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       height: 285.h,
                       child: Image.network(
                         product.image!,
-                        fit: BoxFit.fitHeight,
+                        fit: BoxFit.contain,
                       )),
                   SizedBox(
                     height: 12.h,
@@ -231,7 +224,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        CheckoutButton(product : product),
+                        CheckoutButton(product: product),
                         Container(
                             width: 267.w,
                             child: CustomButton(

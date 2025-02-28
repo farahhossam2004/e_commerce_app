@@ -44,14 +44,14 @@ class ProductContainerWidget extends StatelessWidget {
                 height: 110.h,
                 width: 220.w,
                 child: Image.network(
-                  product.image!,
+                  product.image ?? "https://via.placeholder.com/150",
                   fit: BoxFit.contain,
                 )),
             SizedBox(
               height: 10.h,
             ),
             Text(
-              product.title!,
+              product.title ?? "No Title Available",
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -65,7 +65,7 @@ class ProductContainerWidget extends StatelessWidget {
               height: 4.h,
             ),
             Text(
-              '\$ ${product.price!.toString()}',
+              '\$ ${product.price!.toString() ?? "0.00"}',
               textAlign: TextAlign.center,
               style: GoogleFonts.plusJakartaSans(
                 color: AppColors.priceTextColor,

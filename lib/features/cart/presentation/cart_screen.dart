@@ -279,7 +279,7 @@ class CartScreen extends StatelessWidget {
                             onPressed: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return ConfirmOrderScreen();
+                                return const ConfirmOrderScreen();
                               })).then((value) {
                                 if (value == true) {
                                   context.read<CartCubit>().getCartProducts();
