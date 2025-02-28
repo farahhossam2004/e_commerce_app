@@ -2,9 +2,12 @@ import 'package:e_commerce_app/core/constants/app_colors.dart';
 import 'package:e_commerce_app/core/widgets/custom_button.dart';
 import 'package:e_commerce_app/features/cart/data/models/product_cart_model.dart';
 import 'package:e_commerce_app/features/cart/logic/cubit/cart_cubit.dart';
+import 'package:e_commerce_app/features/cart/presentation/select_address_screen.dart';
+import 'package:e_commerce_app/features/cart/presentation/select_payment_screen.dart';
 import 'package:e_commerce_app/features/cart/presentation/widgets/custom_divider.dart';
 import 'package:e_commerce_app/features/cart/presentation/widgets/payment_method_container.dart';
 import 'package:e_commerce_app/features/cart/presentation/widgets/shipping_container.dart';
+import 'package:e_commerce_app/features/cart/presentation/widgets/success_paymet_modal_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -77,13 +80,21 @@ class ConfirmOrderScreen extends StatelessWidget {
                             height: 1.44.h,
                           ),
                         ),
-                        Text(
-                          'Edit',
-                          style: GoogleFonts.plusJakartaSans(
-                            color: AppColors.priceTextColor,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600,
-                            height: 1.43.h,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return const SelectAddressScreen();
+                            }));
+                          },
+                          child: Text(
+                            'Edit',
+                            style: GoogleFonts.plusJakartaSans(
+                              color: AppColors.priceTextColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                              height: 1.43.h,
+                            ),
                           ),
                         ),
                       ],
@@ -431,8 +442,45 @@ class ConfirmOrderScreen extends StatelessWidget {
                     SizedBox(
                       height: 24.h,
                     ),
-                    PaymentMethodContainer(),
-                    CustomButton(label: 'Pay \$ ${context.read<CartCubit>().totalPriceWithShipping}', onPressed: () {})
+                    Text(
+                      'Payment Method',
+                      style: GoogleFonts.plusJakartaSans(
+                        color: AppColors.textColor,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w600,
+                        height: 1.44.h,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 16.h,
+                    ),
+                    GestureDetector(
+                      child: PaymentMethodContainer(
+                        title: 'MasterCard',
+                        iconUrl: 'assets/images/mastercard.png',
+                        subtitle: '**** **** 0783 7873',
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SelectPaymentScreen()));
+                      },
+                    ),
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                    CustomButton(
+                        label:
+                            'Pay \$ ${context.read<CartCubit>().totalPriceWithShipping}',
+                        onPressed: () {
+                          showModalBottomSheet(
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (context) {
+                                return PaymentSuccessfulModalSheet();
+                              });
+                        })
                   ],
                 ),
               );
