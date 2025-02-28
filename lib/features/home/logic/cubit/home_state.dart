@@ -25,3 +25,10 @@ final class HomeProductsError extends HomeState {
 
   HomeProductsError(this.message);
 }
+
+final class BottomNavBarChanges extends HomeState {
+  final int index;
+  final String item;
+  BottomNavBarChanges(this.index, this.item);
+
+}

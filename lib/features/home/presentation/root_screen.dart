@@ -2,6 +2,7 @@ import 'package:e_commerce_app/core/constants/app_colors.dart';
 import 'package:e_commerce_app/features/browse/presentation/browse_screen.dart';
 import 'package:e_commerce_app/features/cart/presentation/cart_screen.dart';
 import 'package:e_commerce_app/features/home/logic/cubit/bottom_navigator_bar_cubit.dart';
+import 'package:e_commerce_app/features/home/logic/cubit/home_cubit.dart';
 import 'package:e_commerce_app/features/home/presentation/home_screen.dart';
 import 'package:e_commerce_app/features/profile/presentation/profile_screen.dart';
 import 'package:e_commerce_app/features/wishlist/presentation/wishlist_screen.dart';
@@ -17,14 +18,15 @@ class RootScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BottomNavigatorBarCubit(),
+      create: (context) => HomeCubit()
+        ..getCurrentUserData()
+        ..getProducts(),
       child: Scaffold(
         backgroundColor: AppColors.backgroundColor,
-        bottomNavigationBar:
-            BlocBuilder<BottomNavigatorBarCubit, BottomNavigatorBarState>(
+        bottomNavigationBar: BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
             int selectedIndex =
-                (state is BottomNavigatorBarChanges) ? state.index : 0;
+                (state is BottomNavBarChanges) ? state.index : 0;
             return StylishBottomBar(
               currentIndex: selectedIndex,
               items: [
@@ -118,23 +120,20 @@ class RootScreen extends StatelessWidget {
               onTap: (index) {
                 switch (index) {
                   case 0:
-                    BlocProvider.of<BottomNavigatorBarCubit>(context)
-                        .getNavBarItem('Home');
+                    BlocProvider.of<HomeCubit>(context).getNavBarItem('Home');
                     break;
                   case 1:
-                    BlocProvider.of<BottomNavigatorBarCubit>(context)
-                        .getNavBarItem('Browse');
+                    BlocProvider.of<HomeCubit>(context).getNavBarItem('Browse');
                     break;
                   case 2:
-                    BlocProvider.of<BottomNavigatorBarCubit>(context)
+                    BlocProvider.of<HomeCubit>(context)
                         .getNavBarItem('Wishlist');
                     break;
                   case 3:
-                    BlocProvider.of<BottomNavigatorBarCubit>(context)
-                        .getNavBarItem('Cart');
+                    BlocProvider.of<HomeCubit>(context).getNavBarItem('Cart');
                     break;
                   case 4:
-                    BlocProvider.of<BottomNavigatorBarCubit>(context)
+                    BlocProvider.of<HomeCubit>(context)
                         .getNavBarItem('Profile');
                     break;
                 }
@@ -142,28 +141,42 @@ class RootScreen extends StatelessWidget {
             );
           },
         ),
-        body: BlocBuilder<BottomNavigatorBarCubit, BottomNavigatorBarState>(
-            builder: (context, state) {
-          if (state is BottomNavigatorBarChanges) {
-            switch (state.item) {
-              case 'Home':
-                return const HomeScreen();
-
-              case 'Browse':
-                return BrowseScreen();
-
-              case 'Wishlist':
-                return WishlistScreen();
-
-              case 'Cart':
-                return CartScreen();
-
-              case 'Profile':
-                return const ProfileScreen();
+        body: BlocConsumer<HomeCubit, HomeState>(
+          builder: (context, state) {
+            if (state is HomeUserLoading) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
             }
-          }
-          return Container();
-        }),
+
+            if (state is BottomNavBarChanges) {
+              switch (state.index) {
+                case 0:
+                  return HomeScreen(
+                    products: context.read<HomeCubit>().products,
+                    userData: context.read<HomeCubit>().userData!,
+                  );
+
+                case 1:
+                  return BrowseScreen();
+
+                case 2:
+                  return WishlistScreen();
+
+                case 3:
+                  return CartScreen();
+
+                case 4:
+                  return const ProfileScreen();
+              }
+            }
+            return HomeScreen(
+              products: context.read<HomeCubit>().products,
+              userData: context.read<HomeCubit>().userData,
+            );
+          },
+          listener: (BuildContext context, HomeState state) {},
+        ),
       ),
     );
   }

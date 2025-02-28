@@ -1,5 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:e_commerce_app/core/constants/app_colors.dart';
+import 'package:e_commerce_app/features/home/data/models/product_model.dart';
+import 'package:e_commerce_app/features/home/data/models/user_model.dart';
 import 'package:e_commerce_app/features/home/logic/cubit/home_cubit.dart';
 import 'package:e_commerce_app/features/home/presentation/widgets/categories_products_gridview.dart';
 import 'package:e_commerce_app/features/home/presentation/widgets/custom_top_row.dart';
@@ -12,20 +14,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final UserModel? userData;
+  final List<ProductModel> products;
+  const HomeScreen({super.key, this.userData, required this.products});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeCubit()
-        ..getCurrentUserData()
-        ..getProducts(),
-      child: BlocConsumer<HomeCubit, HomeState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
-        builder: (context, state) {
-          return Container(
+    return Container(
             height: ScreenUtil().screenHeight,
             width: double.infinity,
             // decoration: const BoxDecoration(
@@ -45,9 +40,7 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    
                     decoration: const BoxDecoration(
-                      
                         gradient: LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment(0, 0.5),
@@ -69,12 +62,12 @@ class HomeScreen extends StatelessWidget {
                           ),
                           ConditionalBuilder(
                             condition:
-                                context.watch<HomeCubit>().userData != null,
+                                userData != null,
                             builder: (BuildContext context) {
-                              var user = context.watch<HomeCubit>().userData;
+                              
                               return CustomTopBar(
-                                streetName: user!.address!.street!,
-                                city: user.address!.city!,
+                                streetName: userData!.address!.street!,
+                                city: userData!.address!.city!,
                               );
                             },
                             fallback: (BuildContext context) {
@@ -125,10 +118,10 @@ class HomeScreen extends StatelessWidget {
                         SizedBox(height: 12.h),
                         ConditionalBuilder(
                           condition:
-                              context.watch<HomeCubit>().products.isNotEmpty,
+                             products.isNotEmpty,
                           builder: (context) {
                             return HoriztonalListOfProducts(
-                                products: context.watch<HomeCubit>().products);
+                                products: products);
                           },
                           fallback: (context) {
                             return const Center(
@@ -149,10 +142,10 @@ class HomeScreen extends StatelessWidget {
                         ),
                         ConditionalBuilder(
                           condition:
-                              context.watch<HomeCubit>().products.isNotEmpty,
+                              products.isNotEmpty,
                           builder: (context) {
                             return CategoriesGridView(
-                                products: context.watch<HomeCubit>().products);
+                                products: products);
                           },
                           fallback: (context) {
                             return const Center(
@@ -166,8 +159,5 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           );
-        },
-      ),
-    );
-  }
-}
+        
+  }}

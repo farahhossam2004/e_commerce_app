@@ -8,7 +8,7 @@ import 'package:meta/meta.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial());
+  HomeCubit() : super(BottomNavBarChanges(0, 'Home'));
   UserModel? userData;
   List<ProductModel> products = [];
 
@@ -28,7 +28,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void getProducts() {
-    emit(HomeProductsLoading());
+    emit(HomeUserLoading());
     DioHelper.getData(url: Endpoints.productsEndPoint).then((value) {
       if (value.statusCode == 200 && value.data != null) {
         products =
@@ -41,5 +41,28 @@ class HomeCubit extends Cubit<HomeState> {
     }).catchError((error) {
       emit(HomeProductsError(error.toString()));
     });
+  }
+
+// nav bar
+  int index = 0;
+
+  void getNavBarItem(String navBarItem) {
+    switch (navBarItem) {
+      case 'Home':
+        emit(BottomNavBarChanges(0, 'Home'));
+        break;
+      case 'Browse':
+        emit(BottomNavBarChanges(1, 'Browse'));
+        break;
+      case 'Wishlist':
+        emit(BottomNavBarChanges(2, 'Wishlist'));
+        break;
+      case 'Cart':
+        emit(BottomNavBarChanges(3, 'Cart'));
+        break;
+      case 'Profile':
+        emit(BottomNavBarChanges(4, 'Profile'));
+        break;
+    }
   }
 }
