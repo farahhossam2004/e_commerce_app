@@ -47,7 +47,7 @@ class SearchCubit extends Cubit<SearchState> {
   void filterProductsByPrice(double minPrice, double maxPrice) {
     emit(SearchLoading());
 
-    filteredProducts = products.where((product) {
+    filteredProducts = searchedProducts.where((product) {
       return product.price! >= minPrice && product.price! <= maxPrice;
     }).toList();
 
