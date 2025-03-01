@@ -28,7 +28,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void getProducts() {
-    emit(HomeUserLoading());
+    emit(HomeProductsLoading());
     DioHelper.getData(url: Endpoints.productsEndPoint).then((value) {
       if (value.statusCode == 200 && value.data != null) {
         products =

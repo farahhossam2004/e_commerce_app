@@ -135,6 +135,7 @@ class OTPScreen extends StatelessWidget {
                   label: 'Continue',
                   onPressed: () {
                     showModalBottomSheet(
+                        isScrollControlled: true,
                         context: context,
                         builder: (context) => const RegisterSuccessModal());
                   })

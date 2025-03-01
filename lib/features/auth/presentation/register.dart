@@ -3,6 +3,7 @@ import 'package:e_commerce_app/core/widgets/custom_button.dart';
 import 'package:e_commerce_app/core/widgets/custom_text_input.dart';
 import 'package:e_commerce_app/features/auth/logic/cubit/auth_cubit.dart';
 import 'package:e_commerce_app/features/auth/presentation/OTP_screen.dart';
+import 'package:e_commerce_app/features/auth/presentation/login.dart';
 import 'package:e_commerce_app/features/auth/presentation/widgets/social_media_login_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -147,20 +148,28 @@ class Register extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Don\'t have an account?',
+                            'Alraedy have an account?',
                             style: GoogleFonts.plusJakartaSans(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w400,
                                 height: 1.50.h,
                                 color: AppColors.secondryTextColor),
                           ),
-                          Text(
-                            'Register',
-                            style: GoogleFonts.plusJakartaSans(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w600,
-                                height: 1.50.h,
-                                color: AppColors.clickableTextColor),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginPage()));
+                            },
+                            child: Text(
+                              'Login',
+                              style: GoogleFonts.plusJakartaSans(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.50.h,
+                                  color: AppColors.clickableTextColor),
+                            ),
                           )
                         ],
                       )

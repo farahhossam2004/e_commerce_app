@@ -1,7 +1,6 @@
 import 'package:e_commerce_app/core/constants/app_colors.dart';
 import 'package:e_commerce_app/features/browse/presentation/browse_screen.dart';
 import 'package:e_commerce_app/features/cart/presentation/cart_screen.dart';
-import 'package:e_commerce_app/features/home/logic/cubit/bottom_navigator_bar_cubit.dart';
 import 'package:e_commerce_app/features/home/logic/cubit/home_cubit.dart';
 import 'package:e_commerce_app/features/home/presentation/home_screen.dart';
 import 'package:e_commerce_app/features/profile/presentation/profile_screen.dart';
@@ -143,11 +142,11 @@ class RootScreen extends StatelessWidget {
         ),
         body: BlocConsumer<HomeCubit, HomeState>(
           builder: (context, state) {
-            if (state is HomeUserLoading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
+            // if (state is HomeUserLoading || state is HomeProductsLoading) {
+            //   return const Center(
+            //     child: CircularProgressIndicator(),
+            //   );
+            // }
 
             if (state is BottomNavBarChanges) {
               switch (state.index) {
@@ -158,13 +157,13 @@ class RootScreen extends StatelessWidget {
                   );
 
                 case 1:
-                  return BrowseScreen();
+                  return const BrowseScreen();
 
                 case 2:
-                  return WishlistScreen();
+                  return const WishlistScreen();
 
                 case 3:
-                  return CartScreen();
+                  return const CartScreen();
 
                 case 4:
                   return ProfileScreen(

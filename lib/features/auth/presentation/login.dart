@@ -24,13 +24,13 @@ class LoginPage extends StatelessWidget {
           backgroundColor: AppColors.backgroundColor,
           body: BlocConsumer<AuthCubit, AuthState>(
             listener: (context, state) {
-              if (state is AuthLoginLoading) {
-                showDialog(
-                    context: context,
-                    builder: (context) => const Center(
-                          child: CircularProgressIndicator(),
-                        ));
-              }
+              // if (state is AuthLoginLoading) {
+              //   showDialog(
+              //       context: context,
+              //       builder: (context) => const Center(
+              //             child: CircularProgressIndicator(),
+              //           ));
+              // }
 
               if (state is AuthLoginSuccess) {
                 Navigator.pop(context);
