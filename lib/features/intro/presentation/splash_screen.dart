@@ -1,11 +1,28 @@
 import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
+import 'package:e_commerce_app/core/database/cache/cache_helper.dart';
+import 'package:e_commerce_app/features/home/presentation/root_screen.dart';
 import 'package:e_commerce_app/features/intro/presentation/on_boarding1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  bool isLoggedin = false;
+  String? token;
+
+  @override
+  void initState() {
+    CacheHelper.init();
+    token = CacheHelper.getData(key: "token");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +54,7 @@ class SplashScreen extends StatelessWidget {
         ],
       ),
       onAnimationEnd: () => debugPrint("On Fade In End"),
-      nextScreen: const OnBoarding1(),
+      nextScreen: token != null ? RootScreen() : const OnBoarding1(),
     );
   }
 }

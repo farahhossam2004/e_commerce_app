@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:e_commerce_app/core/database/cache/cache_helper.dart';
 import 'package:e_commerce_app/core/network/dio_helper.dart';
 import 'package:e_commerce_app/core/network/endpoints.dart';
 import 'package:meta/meta.dart';
@@ -13,6 +14,7 @@ class AuthCubit extends Cubit<AuthState> {
     Map<String, String> data = {'username': "mor_2314", 'password': "83r5^_"};
     DioHelper.postData(url: Endpoints.loginEndPoint, data: data).then((value) {
       if (value.statusCode == 200) {
+        CacheHelper.saveData(key: "token", value: value.data['token']);
         emit(AuthLoginSuccess());
       } else {
         emit(AuthLoginFailure("Login failed "));
