@@ -1,16 +1,13 @@
 import 'package:e_commerce_app/features/profile/data/models/settings_model.dart';
+import 'package:e_commerce_app/features/profile/presentation/add_payment_screen.dart';
 import 'package:e_commerce_app/features/profile/presentation/widgets/acc_settings_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-
 
 class AccountSettingsList extends StatelessWidget {
   const AccountSettingsList({
     super.key,
   });
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +24,23 @@ class AccountSettingsList extends StatelessWidget {
           // shrinkWrap: false,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
-            return AccountSettingsTile(
-                icon: acc_settings[index].icon,
-                title: acc_settings[index].title);
+            if (index == 1) {
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AddPaymentScreen()));
+                },
+                child: AccountSettingsTile(
+                    icon: acc_settings[index].icon,
+                    title: acc_settings[index].title),
+              );
+            } else {
+              return AccountSettingsTile(
+                  icon: acc_settings[index].icon,
+                  title: acc_settings[index].title);
+            }
           },
           separatorBuilder: (context, index) {
             return SizedBox(
