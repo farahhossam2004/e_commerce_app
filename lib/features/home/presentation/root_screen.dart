@@ -167,7 +167,9 @@ class RootScreen extends StatelessWidget {
                   return CartScreen();
 
                 case 4:
-                  return const ProfileScreen();
+                  return ProfileScreen(
+                    userData: context.read<HomeCubit>().userData!
+                  );
               }
             }
             return HomeScreen(

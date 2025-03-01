@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:e_commerce_app/core/constants/app_colors.dart';
+import 'package:e_commerce_app/features/home/data/models/user_model.dart';
 import 'package:e_commerce_app/features/home/logic/cubit/home_cubit.dart';
 import 'package:e_commerce_app/features/profile/presentation/widgets/acc_settings_list.dart';
 import 'package:e_commerce_app/features/profile/presentation/widgets/acc_settings_tile.dart';
@@ -10,19 +11,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  UserModel userData;
+  ProfileScreen({super.key, required  this.userData});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeCubit()..getCurrentUserData(),
-      child: SafeArea(
-        child: BlocConsumer<HomeCubit, HomeState>(
-          listener: (context, state) {
-            // TODO: implement listener
-          },
-          builder: (context, state) {
-            return Column(children: [
+    return SafeArea(
+        
+            child: Column(children: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Row(
@@ -105,11 +101,11 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   );
                 },
-                condition: context.watch<HomeCubit>().userData != null,
+                condition: userData != null,
                 builder: (BuildContext context) {
-                  var user = context.watch<HomeCubit>().userData!;
+                  
                   return Container(
-                    height: 246.h,
+                    height: 220.h,
                     width: double.infinity,
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(
@@ -138,7 +134,7 @@ class ProfileScreen extends StatelessWidget {
                           height: 16.h,
                         ),
                         Text(
-                          '${user.name!.firstname} ${user.name!.lastname}',
+                          '${userData.name!.firstname} ${userData.name!.lastname}',
                           style: GoogleFonts.plusJakartaSans(
                             fontSize: 18.sp,
                             color: AppColors.textColor,
@@ -147,7 +143,7 @@ class ProfileScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          user.email!,
+                          userData.email!,
                           style: GoogleFonts.plusJakartaSans(
                             fontSize: 14.sp,
                             color: AppColors.secondryTextColor,
@@ -173,80 +169,76 @@ class ProfileScreen extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w),
                       child: SingleChildScrollView(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 24.h,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 24.h,
+                            ),
+                            Divider(
+                              thickness: 4.h,
+                              color: AppColors.secondryBorderColor,
+                            ),
+                            SizedBox(
+                              height: 24.h,
+                            ),
+                            Text(
+                              'Account Settings',
+                              style: GoogleFonts.plusJakartaSans(
+                                fontSize: 14.sp,
+                                color: AppColors.secondryTextColor,
+                                fontWeight: FontWeight.w600,
+                                height: 1.43.h,
                               ),
-                              Divider(
-                                thickness: 4.h,
-                                color: AppColors.secondryBorderColor,
+                            ),
+                            SizedBox(
+                              height: 16.h,
+                            ),
+                            const AccountSettingsList(),
+                            Divider(
+                              thickness: 4.h,
+                              color: AppColors.secondryBorderColor,
+                            ),
+                            SizedBox(
+                              height: 24.h,
+                            ),
+                            Text(
+                              'General',
+                              style: GoogleFonts.plusJakartaSans(
+                                fontSize: 14.sp,
+                                color: AppColors.secondryTextColor,
+                                fontWeight: FontWeight.w600,
+                                height: 1.43.h,
                               ),
-                              SizedBox(
-                                height: 24.h,
-                              ),
-                              Text(
-                                'Account Settings',
-                                style: GoogleFonts.plusJakartaSans(
-                                  fontSize: 14.sp,
-                                  color: AppColors.secondryTextColor,
-                                  fontWeight: FontWeight.w600,
-                                  height: 1.43.h,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 16.h,
-                              ),
-                              const AccountSettingsList(),
-                              Divider(
-                                thickness: 4.h,
-                                color: AppColors.secondryBorderColor,
-                              ),
-                              SizedBox(
-                                height: 24.h,
-                              ),
-                              Text(
-                                'General',
-                                style: GoogleFonts.plusJakartaSans(
-                                  fontSize: 14.sp,
-                                  color: AppColors.secondryTextColor,
-                                  fontWeight: FontWeight.w600,
-                                  height: 1.43.h,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 16.h,
-                              ),
-                              const GeneralSettingsList(),
-                              Divider(
-                                thickness: 4.h,
-                                color: AppColors.secondryBorderColor,
-                              ),
-                              SizedBox(
-                                height: 24.h,
-                              ),
-                              const AccountSettingsTile(
-                                icon: Icons.logout_outlined,
-                                title: 'Logout',
-                                isLogout: true,
-                              ),
-                              SizedBox(
-                                height: 24.h,
-                              ),
-                            ],
-                          ),
+                            ),
+                            SizedBox(
+                              height: 16.h,
+                            ),
+                            const GeneralSettingsList(),
+                            Divider(
+                              thickness: 4.h,
+                              color: AppColors.secondryBorderColor,
+                            ),
+                            SizedBox(
+                              height: 24.h,
+                            ),
+                            const AccountSettingsTile(
+                              icon: Icons.logout_outlined,
+                              title: 'Logout',
+                              isLogout: true,
+                            ),
+                            SizedBox(
+                              height: 24.h,
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
                 ),
               )
-            ]);
-          },
-        ),
-      ),
-    );
+            ])
+          ,
+        );
   }
 }

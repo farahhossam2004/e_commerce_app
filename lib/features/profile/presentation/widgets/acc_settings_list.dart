@@ -19,7 +19,7 @@ class AccountSettingsList extends StatelessWidget {
       SettingsModel(icon: Icons.security, title: 'Account Security'),
     ];
     return Container(
-      height: 280.h,
+      height: 300.h,
       child: ListView.separated(
           // shrinkWrap: false,
           physics: const NeverScrollableScrollPhysics(),

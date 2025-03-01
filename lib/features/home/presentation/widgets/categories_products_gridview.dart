@@ -11,24 +11,22 @@ class CategoriesGridView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       // height: 640.h,
-      child: Expanded(
-        child: GridView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 200.w,
-                mainAxisExtent: 230.h,
-                childAspectRatio: 3 / 2,
-                crossAxisSpacing: 20.w,
-                mainAxisSpacing: 20.h),
-            itemCount: products.length,
-            itemBuilder: (BuildContext context, index) {
-              return ProductContainerWidget(
-                products: products,
-                product: products[index],
-              );
-            }),
-      ),
+      child: GridView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 200.w,
+              mainAxisExtent: 230.h,
+              childAspectRatio: 3 / 2,
+              crossAxisSpacing: 20.w,
+              mainAxisSpacing: 20.h),
+          itemCount: products.length,
+          itemBuilder: (BuildContext context, index) {
+            return ProductContainerWidget(
+              products: products,
+              product: products[index],
+            );
+          }),
     );
   }
 }
