@@ -1,7 +1,7 @@
 # 🛍️ E-Commerce App (Flutter)
 
 ## 📋 Overview  
-# 🎓 **This app was developed as part of my Orange Training Graduation Project.**
+🎓 **This app was developed as part of my Orange Training Graduation Project.**
 This project is a Flutter-based E-Commerce prototype showcasing essential online shopping functionalities.
 
 ## ✨ Key Features  
